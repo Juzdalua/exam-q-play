@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import "../styles/global.css";
+import Footer from "./(home)/components/footer";
+import TopLayout from "./(home)/components/header";
 
 export const metadata: Metadata = {
   title: {
@@ -12,7 +14,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <TopLayout />
+        <div className="h-[500px] overflow-y-auto">
+        {children}
+        </div>
+        <Footer />
+      </body>
     </html>
   );
 }
