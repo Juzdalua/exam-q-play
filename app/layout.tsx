@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import "../styles/global.css";
+import "@/styles/global.css";
 import Footer from "./(home)/components/footer";
 import TopLayout from "./(home)/components/header";
 import Sidebar from "./(home)/components/sidebar";
