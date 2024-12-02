@@ -23,7 +23,7 @@ const Start = async () => {
           <UserList />
         </Suspense>
         <Suspense fallback={<h1>Loading User List...</h1>}>
-          <UserInfo id="11" />
+          <UserInfo id="1" />
         </Suspense>
       </div>
     </div>
