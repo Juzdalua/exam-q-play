@@ -21,3 +21,18 @@ npm run dev
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
+
+# Install Daisy UI
+
+```
+npm i -D daisyui@latest
+```
+
+```
+module.exports = {
+  //...
+  plugins: [
+    require('daisyui'),
+  ],
+}
+```
