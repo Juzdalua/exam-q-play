@@ -4,7 +4,9 @@
   "description": "npm init\r npm install react@latest next@latest react-dom@latest",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "author": "",
   "license": "ISC",
