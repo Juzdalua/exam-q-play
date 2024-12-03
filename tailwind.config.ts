@@ -7,7 +7,11 @@ const config: Config = {
     // "./styles/**/*.{css}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        mono: ['MesloLGS', 'Menlo', 'monospace'],
+      },
+    },
   },
   daisyui: {
     themes: [

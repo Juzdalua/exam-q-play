@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-mono;
+  }
+}
+
+@font-face {
+  font-family: 'MesloLGS';
+  src: url('/fonts/MesloLGS-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
