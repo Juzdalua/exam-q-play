@@ -1,15 +1,17 @@
+import Link from "next/link";
+
 const TopLayout = () => {
   return (
     <div className="min-h-20 bg-neutral flex justify-end">
       <ul className="menu menu-horizontal content-center">
         <li>
-          <a>Item 1</a>
+          <Link href={`/`}>Home</Link>
         </li>
         <li>
-          <a>Item 2</a>
+        <Link href={`/auth/signin`}>Signin</Link>
         </li>
         <li>
-          <a>Item 3</a>
+        <Link href={`/auth/signup`}>Signup</Link>
         </li>
       </ul>
     </div>
