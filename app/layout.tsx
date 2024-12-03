@@ -1,8 +1,6 @@
-import { Metadata } from "next";
 import "@/styles/global.css";
-import Footer from "./(home)/components/footer";
-import TopLayout from "./(home)/components/header";
-import Sidebar from "./(home)/components/sidebar";
+import { Metadata } from "next";
+import MainComponent from "./(home)/components/main";
 
 export const metadata: Metadata = {
   title: {
@@ -16,12 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="font-mono">
-        <TopLayout />
-        <div className="relative flex">
-          <Sidebar />
-          <div className="ml-56 flex-1 h-[500px] overflow-y-auto">{children}</div>
-        </div>
-        <Footer />
+        <MainComponent>{children}</MainComponent>
       </body>
     </html>
   );

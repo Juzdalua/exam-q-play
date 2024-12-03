@@ -1,6 +1,8 @@
-const Sidebar = () => {
+"use client";
+
+const Sidebar = ({ isVisible }: { isVisible: boolean }) => {
   return (
-    <div className="fixed left-0 top-20 w-56 h-full bg-base-200">
+    <div className={`${isVisible ? "translate-x-0" : "-translate-x-full"} fixed left-0 top-20 w-56 h-full bg-base-200`}>
       <ul className="menu bg-base-200 rounded-box w-56">
         <li>
           <a>Item 1</a>
