@@ -1,5 +1,5 @@
-import { db } from "@/lib/db";
-import mysql, { Pool } from "mysql2/promise";
+import { db } from "@/src/lib/db";
+import mysql, { Connection, Pool } from "mysql2/promise";
 import { NextResponse } from "next/server";
 
 class DatabaseConnection {
@@ -28,10 +28,27 @@ class DatabaseConnection {
 
   public async Query(query: string) {
     try {
-      const [rows] = await db.query(query);
+      const [rows] = await this.pool.query(query);
       return rows;
     } catch (error) {
-      return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+      console.error("Database query error:", error);
+      throw new Error("Database query failed.");
+    }
+  }
+
+  public async Transaction(query: string) {
+    const connection = await this.pool.getConnection();
+    await connection.beginTransaction();
+
+    try {
+      const [insertedIdResult] = await connection.query("SELECT LAST_INSERT_ID() AS id");
+      await connection.commit();
+    } catch (error) {
+      await connection.rollback();
+      console.error("Transaction failed, rolled back:", error);
+      throw new Error("Transaction failed.");
+    } finally {
+      connection.release();
     }
   }
 }

@@ -1,4 +1,4 @@
-import { conn } from "@/utils/Connection";
+import { conn } from "@/src/utils/Connection";
 import { NextResponse } from "next/server";
 
 export const GET = async (req: Request, { params }: { params: { id: string } }) => {
