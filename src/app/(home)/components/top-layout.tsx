@@ -1,14 +1,12 @@
 "use client";
 
+import LocalStorage from "@/src/utils/LocalStorage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "./global-context";
 
 const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    setToken(localStorage.getItem("jwt"));
-  }, []);
+  const {token, setToken} = useGlobalContext();
 
   return (
     <div className="min-h-20 bg-neutral flex justify-between">
@@ -47,7 +45,7 @@ const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
             </Link>
           </li>
           <li>
-            <Link href={`/auth/signup`} className={!token ? "hidden" : ""}>
+            <Link href={`/auth/logout`} className={!token ? "hidden" : ""}>
               Logout
             </Link>
           </li>

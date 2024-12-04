@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "../../(home)/components/global-context";
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const { token, setToken } = useGlobalContext();
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
     if (token) {
       router.push("/");
     }
@@ -32,7 +33,10 @@ const SigninPage = () => {
       }
 
       const { token } = await response.json();
+
       localStorage.setItem("jwt", token);
+      setToken(token);
+
       router.push("/");
     } catch (error: any) {
       setErrorMessage(error.message);
