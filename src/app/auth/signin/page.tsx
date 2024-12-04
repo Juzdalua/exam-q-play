@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../(home)/components/global-context";
+import LocalStorage from "@/src/utils/LocalStorage";
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +35,7 @@ const SigninPage = () => {
 
       const { token } = await response.json();
 
-      localStorage.setItem("jwt", token);
+      LocalStorage.setItem("jwt", token);
       setToken(token);
 
       router.push("/");

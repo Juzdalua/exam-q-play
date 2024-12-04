@@ -7,7 +7,7 @@ import { useGlobalContext } from "../../(home)/components/global-context";
 
 const Logout = () => {
   const router = useRouter();
-  const {token, setToken} = useGlobalContext();
+  const { token, setToken } = useGlobalContext();
 
   useEffect(() => {
     LocalStorage.removeItem("jwt");
