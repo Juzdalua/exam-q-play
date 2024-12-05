@@ -30,18 +30,21 @@ const SignupPage = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      const body = await response.json();
+
       if (!response.ok) {
-        throw new Error("Signup failed. Please try again.");
+        setErrorMessage(body.message);
+        throw new Error(body.message);
       }
 
-      const { token } = await response.json();
+      // const { token } = await response.json();
 
       LocalStorage.setItem("jwt", token);
       setToken(token);
 
       router.push("/");
     } catch (error: any) {
-      setErrorMessage(error.message);
+      console.log(error.message);
     }
   };
 

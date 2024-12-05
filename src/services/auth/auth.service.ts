@@ -10,7 +10,7 @@ export class AuthService {
 
       const [isExistEmail] = await connection.query<RowDataPacket[]>(
         `
-          SELECT COUNT(id) as cnt FROM account WHERE email = ?
+          SELECT COUNT(id) as count FROM account WHERE email = ?
         `,
         [email]
       );
@@ -35,7 +35,7 @@ export class AuthService {
     } catch (error) {
       await connection.rollback();
       console.error("Transaction failed, rolled back:", error);
-      throw new Error("Transaction failed.");
+      return -2;
     } finally {
       connection.release();
     }
