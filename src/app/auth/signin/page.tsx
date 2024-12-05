@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../(home)/components/global-context";
 import LocalStorage from "@/src/utils/LocalStorage";
+import ToastError from "@/src/components/error/toast";
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
@@ -48,7 +49,7 @@ const SigninPage = () => {
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-bold mb-4">Sign In</h1>
       <form onSubmit={handleSubmit} className="bg-base-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        {errorMessage && <div className="text-red-500 text-sm mb-4">{errorMessage}</div>}
+        {errorMessage && <ToastError errorMsg={errorMessage} />}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
             Email
