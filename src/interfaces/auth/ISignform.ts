@@ -1,8 +1,8 @@
-export enum SignType{
+export enum SignType {
   Signup,
-  Signin
+  Signin,
 }
 
-export interface ISignform{
-  type:SignType;
+export interface ISignform {
+  type: SignType;
 }

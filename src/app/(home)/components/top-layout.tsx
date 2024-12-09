@@ -1,12 +1,10 @@
 "use client";
 
-import LocalStorage from "@/src/utils/LocalStorage";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useGlobalContext } from "./global-context";
 
 const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
-  const {token, setToken} = useGlobalContext();
+  const { token, setToken } = useGlobalContext();
 
   return (
     <div className="min-h-20 bg-neutral flex justify-between">
@@ -35,6 +33,16 @@ const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
             <Link href={`/`}>Home</Link>
           </li>
           <li>
+            <Link href={`/auth/connect`} className={token ? "hidden" : ""}>
+              Connect
+            </Link>
+          </li>
+          <li>
+            <Link href={`/auth/disconnect`} className={token ? "" : "hidden"}>
+              Disconnect
+            </Link>
+          </li>
+          {/* <li>
             <Link href={`/auth/signin`} className={token ? "hidden" : ""}>
               Signin
             </Link>
@@ -48,7 +56,7 @@ const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
             <Link href={`/auth/logout`} className={!token ? "hidden" : ""}>
               Logout
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

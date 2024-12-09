@@ -46,8 +46,8 @@ const SignForm = ({ data }: { data: ISignform }) => {
 
       // const { token } = await response.json();
 
-      LocalStorage.setItem("jwt", token);
-      setToken(token);
+      LocalStorage.setItem("jwt", body.token);
+      setToken(body.token);
 
       router.push("/");
     } catch (error: any) {
