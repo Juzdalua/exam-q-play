@@ -4,7 +4,7 @@ import { useState } from "react";
 import TopLayout from "./top-layout";
 import Sidebar from "./sidebar";
 import Footer from "./footer";
-import { GlobalContextProvider } from "./global-context";
+import { GlobalContextProvider } from "../../../../components/global-context";
 
 export default function MainComponent({ children }: { children: React.ReactNode }) {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);

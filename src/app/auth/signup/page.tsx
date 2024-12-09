@@ -1,10 +1,10 @@
 "use client";
 
-import SignForm from "@/src/components/auth/signform";
+import SignForm from "@/src/app/auth/components/signform";
+import { useGlobalContext } from "@/src/components/global-context";
 import { SignType } from "@/src/interfaces/auth/ISignform";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useGlobalContext } from "../../(home)/components/global-context";
 
 const SignupPage = () => {
   const router = useRouter();

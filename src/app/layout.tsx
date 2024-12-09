@@ -1,6 +1,6 @@
 import "@/styles/global.css";
 import { Metadata } from "next";
-import MainComponent from "./(home)/components/main";
+import MainComponent from "./(home)/components/(layout)/main";
 
 export const metadata: Metadata = {
   title: {

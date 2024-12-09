@@ -1,9 +1,9 @@
 "use client";
 
+import { useGlobalContext } from "@/src/components/global-context";
 import LocalStorage from "@/src/utils/LocalStorage";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useGlobalContext } from "../../(home)/components/global-context";
 
 const Disconnect = () => {
   const router = useRouter();

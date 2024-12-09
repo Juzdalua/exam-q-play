@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useGlobalContext } from "./global-context";
+import { useGlobalContext } from "../../../../components/global-context";
 
 const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
   const { token, setToken } = useGlobalContext();

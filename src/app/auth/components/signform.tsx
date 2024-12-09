@@ -1,7 +1,7 @@
 "use client";
 
 import LocalStorage from "@/src/utils/LocalStorage";
-import ToastError from "../error/toast";
+import ToastError from "../../../components/error/toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/src/app/(home)/components/global-context";

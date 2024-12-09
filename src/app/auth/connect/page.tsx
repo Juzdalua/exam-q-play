@@ -1,10 +1,10 @@
 "use client";
 
-import ConnectForm from "@/src/components/auth/connectform";
+import ConnectForm from "@/src/app/auth/components/connectform";
+import { useGlobalContext } from "@/src/components/global-context";
 import { ConnectType } from "@/src/interfaces/auth/IConnectform";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useGlobalContext } from "../../(home)/components/global-context";
 
 const ConnectPage = () => {
   const router = useRouter();
