@@ -1,3 +1,5 @@
+"use client"
+
 const FullBleedCarousel = async () => {
   return (
     <div className="flex justify-center mt-20">
