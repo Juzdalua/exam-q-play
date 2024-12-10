@@ -1,4 +1,4 @@
-import DDayTimer from "./dday-timer";
+import DaisyCountdown from "./daisy-countdown";
 import FullBleedCarousel from "./full-bleed-carousel";
 
 const RootPage = async () => {
@@ -7,7 +7,7 @@ const RootPage = async () => {
 
   return (
     <div className="flex flex-col justify-center">
-      <DDayTimer date={date} time={time} />
+      <DaisyCountdown date={date} time={time} />
       <FullBleedCarousel />
     </div>
   );
