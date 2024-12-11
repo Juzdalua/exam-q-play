@@ -10,12 +10,12 @@ export default function MainComponent({ children }: { children: React.ReactNode 
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <GlobalContextProvider>
         <TopLayout onSideBarToggle={() => setIsSidebarVisible(!isSidebarVisible)} />
-        <div className="flex">
+        <div className="flex flex-1">
           <Sidebar isVisible={isSidebarVisible} />
-          <div className={`${isSidebarVisible ? "ml-56" : ""} flex-1 h-screen`}>{children}</div>
+          <div className={`${isSidebarVisible ? "ml-56" : ""} flex-1`}>{children}</div>
         </div>
         <Footer />
       </GlobalContextProvider>

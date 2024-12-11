@@ -1,3 +1,4 @@
+import ArtBoard from "./art-board";
 import DaisyCountdown from "./daisy-countdown";
 import FullBleedCarousel from "./full-bleed-carousel";
 
@@ -8,6 +9,7 @@ const RootPage = async () => {
   return (
     <div className="flex flex-col justify-center">
       <DaisyCountdown date={date} time={time} />
+      <ArtBoard />
       <FullBleedCarousel />
     </div>
   );
