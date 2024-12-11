@@ -4,8 +4,8 @@ import LocalStorage from "@/src/utils/LocalStorage";
 import ToastError from "../../../components/error/toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "@/src/app/(home)/components/global-context";
 import { ISignform, SignType } from "@/src/interfaces/auth/ISignform";
+import { useGlobalContext } from "@/src/components/global-context";
 
 const SignForm = ({ data }: { data: ISignform }) => {
   const [email, setEmail] = useState("");

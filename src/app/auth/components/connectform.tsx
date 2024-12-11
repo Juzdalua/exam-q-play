@@ -1,16 +1,18 @@
 "use client";
 
 import { ConnectType, IConnectForm } from "@/src/interfaces/auth/IConnectform";
-import LocalStorage from "@/src/utils/LocalStorage";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ToastError from "../../../components/error/toast";
-import { useGlobalContext } from "../../../components/global-context";
+import { useGlobalContext } from "@/src/components/global-context";
+import LocalStorage from "@/src/utils/LocalStorage";
+import { useRouter } from "next/navigation";
 
 const ConnectForm = ({ data }: { data: IConnectForm }) => {
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [side, setSide] = useState("wife");
   const [errorMessage, setErrorMessage] = useState("");
+
   const router = useRouter();
   const { token, setToken } = useGlobalContext();
 
@@ -34,7 +36,7 @@ const ConnectForm = ({ data }: { data: IConnectForm }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, side }),
+        body: JSON.stringify({ name, password, side }),
       });
 
       const body = await response.json();
@@ -45,6 +47,7 @@ const ConnectForm = ({ data }: { data: IConnectForm }) => {
       }
 
       // const { token } = await response.json();
+
       LocalStorage.setItem("jwt", body.token);
       setToken(body.token);
 
@@ -60,13 +63,26 @@ const ConnectForm = ({ data }: { data: IConnectForm }) => {
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left"></div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <form className="card-body">
+            <form onSubmit={handleSubmit} className="card-body">
               {errorMessage && <ToastError errorMsg={errorMessage} />}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Nickname</span>
                 </label>
                 <input type="text" placeholder="nickname" className="input input-bordered" required value={name} onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  placeholder="password"
+                  className="input input-bordered"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
               <div className="form-control">
                 <label className="label cursor-pointer">
@@ -96,7 +112,9 @@ const ConnectForm = ({ data }: { data: IConnectForm }) => {
               </div>
 
               <div className="form-control mt-6">
-                <button className="btn btn-primary">{data.type == ConnectType.Connect ? "Connect" : "Disconnect"}</button>
+                <button type="submit" className="btn btn-primary">
+                  {data.type == ConnectType.Connect ? "Connect" : "Disconnect"}
+                </button>
               </div>
             </form>
           </div>

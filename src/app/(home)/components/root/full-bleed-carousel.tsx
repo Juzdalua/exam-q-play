@@ -1,6 +1,6 @@
 "use client"
 
-const FullBleedCarousel = async () => {
+const FullBleedCarousel = () => {
   return (
     <div className="flex justify-center mt-20">
       <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">

@@ -54,6 +54,58 @@ export class AuthService {
   /*-----------------------------------
     Guest
   -----------------------------------*/
+  static async CreateOrGetGuest(name: string, hasedPassword: string, side: GuestSide): Promise<Guest | number> {
+    const connection = await conn.getPool().getConnection();
+    try {
+      await connection.beginTransaction();
+
+      const [guest] = await connection.query<RowDataPacket[]>(
+        `
+          SELECT id, name, password, side FROM guest WHERE name = ? AND side = ?
+        `,
+        [name, side]
+      );
+
+      if (guest.length == 0) {
+        const [createGuest] = await connection.query<ResultSetHeader>(
+          `
+          INSERT INTO guest (name, password, side) VALUES (?, ?, ?)
+        `,
+          [name, hasedPassword, side]
+        );
+
+        if (createGuest.affectedRows == 0) {
+          await connection.rollback();
+          return null;
+        }
+
+        const [createdGuest] = await connection.query<RowDataPacket[]>(
+          `
+            SELECT id, name, password, side FROM guest WHERE id = ?
+          `,
+          [createGuest.insertId]
+        );
+
+        await connection.commit();
+        return createdGuest[0] as Guest;
+      } else {
+        await connection.commit();
+        return guest[0] as Guest;
+      }
+    } catch (error) {
+      await connection.rollback();
+      if (error.code === "ER_DUP_ENTRY") {
+        console.error("Duplicate key error:", error.message);
+        return -1;
+      } else {
+        console.error("Transaction failed, rolled back:", error);
+        return -2;
+      }
+    } finally {
+      connection.release();
+    }
+  }
+
   static async GetGuestByNameNSide(name: string, side: GuestSide): Promise<Guest> {
     const [guest] = await conn.getPool().query<RowDataPacket[]>(`SELECT id, name, side FROM guest WHERE name = ? and side = ?`, [name, side]);
     return guest.length > 0 ? (guest[0] as Guest) : null;
