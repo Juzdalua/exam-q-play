@@ -1,7 +1,7 @@
 "use client";
 
 import { ConnectType, IConnectForm } from "@/src/interfaces/auth/IConnectform";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToastError from "../../../components/error/toast";
 import { useGlobalContext } from "@/src/components/global-context";
 import LocalStorage from "@/src/utils/LocalStorage";
@@ -12,9 +12,14 @@ const ConnectForm = ({ data }: { data: IConnectForm }) => {
   const [password, setPassword] = useState("");
   const [side, setSide] = useState("wife");
   const [errorMessage, setErrorMessage] = useState("");
-
   const router = useRouter();
   const { token, setToken } = useGlobalContext();
+
+  useEffect(() => {
+    if (token) {
+      router.push("/");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
