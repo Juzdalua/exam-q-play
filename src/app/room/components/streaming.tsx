@@ -1,8 +1,7 @@
-const Streaming = () => {
+"use client";
 
-  return (
-    <div className="border-2 border-red-500 min-h-80"></div>
-  );
-}
+const Streaming = () => {
+  return <div className="border-2 border-red-500 min-h-80"></div>;
+};
 
 export default Streaming;
