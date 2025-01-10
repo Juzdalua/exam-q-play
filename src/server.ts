@@ -14,7 +14,7 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   });
 
-  const wss = new WebSocketServer({ port:process.env.WS_PORT ?? 8080 });
+  const wss = new WebSocketServer({ port:Number(process.env.WS_PORT as string) ?? 8080 });
 
   wss.on("connection", (ws) => {
     console.log("New WebSocket connection");
