@@ -25,9 +25,24 @@ export const GET = async (req: NextRequest) => {
 
     case "2": {
       // INSERT
+      const { error } = await supabase.from("user").insert({ name: "PP", age: 1 });
+
+      if (error) {
+        return NextResponse.json({ message: "Error Insert" }, { status: 500 });
+      }
+      // 데이터가 정상적으로 조회되면 클라이언트에게 전달
+      return NextResponse.json({}, { status: 200 });
+    }
+
+    case "3": {
+      // UPDATE
       const { error } = await supabase
-        .from("user") // users 테이블에서 데이터 조회
-        .insert({ name: "PP", age: 1 });
+        .from("user")
+        .update({
+          name: "rk",
+          age: 11,
+        })
+        .eq("id", 2);
 
       if (error) {
         return NextResponse.json({ message: "Error Insert" }, { status: 500 });
