@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useGlobalContext } from "../../../../components/global-context";
-import ToggleHambugerButton from './toggle-button';
+import ToggleHambugerButton from "./toggle-button";
 
 const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
   const { token, setToken } = useGlobalContext();
@@ -16,15 +16,16 @@ const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
       <div className="flex w-full justify-end">
         <ul className="menu menu-horizontal content-center">
         <li>
-            <Link href={`/test`}>Test</Link>
+            <Link href={`/stripe`}>Stripe</Link>
+          </li>
+          <li>
+            <Link href={`/test`}>Supabase</Link>
           </li>
           <li>
             <Link href={`/`}>Home</Link>
           </li>
           <li>
-            <Link href={`/room`}>
-              Room
-            </Link>
+            <Link href={`/room`}>Room</Link>
           </li>
           <li>
             <Link href={`/auth/connect`} className={token ? "hidden" : ""}>
