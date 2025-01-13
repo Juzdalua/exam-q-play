@@ -1,23 +1,10 @@
-import stripe from "@/src/utils/stripe/stripe";
+import StripePayment from "@/src/utils/stripe/stripeServer";
 import { NextRequest, NextResponse } from "next/server";
 
-const CreateStripeCustomer = async () => {
-  const customer = await stripe.customers.create({
-    email: "test@exam.com"
-  });
-
-  return customer;
-}
-
-const GetSrtipeCustomer = async() => {
-  const customers = await stripe.customers.list();
-  return customers;
-}
+const stripe = StripePayment.getInstance();
 
 export const GET = async (req: NextRequest) => {
-  // const customer = await CreateStripeCustomer();
-  const customers = await GetSrtipeCustomer();
-  console.log(customers)
+  const customers = await stripe.getAllCustomer();
 
-  return NextResponse.json({result: customers}, {status: 200});
-}
+  return NextResponse.json({ result: customers }, { status: 200 });
+};

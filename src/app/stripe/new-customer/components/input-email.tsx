@@ -1,15 +1,16 @@
 "use client";
 
 import ToastError from "@/src/components/error/toast";
-import router from "next/router";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-const NewCustomer = () => {
+const StripeInputEmail = () => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [customers, setCustomers] = useState(null);
+  const router = useRouter();
 
-  const handleCreateCustomer = async () => {
+  const handleCreateCustomer = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       const response = await fetch(`/api/stripe/new-customer`, {
         method: "POST",
@@ -26,7 +27,7 @@ const NewCustomer = () => {
         throw new Error(body.message);
       }
 
-      router.push("/stripe/new-customer");
+      router.push(`/stripe/payment-intent?id=${encodeURIComponent(body.result.id)}`);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -58,28 +59,6 @@ const NewCustomer = () => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div>
-  //     <h1>Stripe</h1>
-  //     <div>
-  //       {customers && customers.length > 0 ? (
-  //         customers.map((customer: { id: string; email: string }) => (
-  //           <div key={customer.id} className="mb-4">
-  //             <div>
-  //               <strong>ID:</strong> {customer.id}
-  //             </div>
-  //             <div>
-  //               <strong>Email:</strong> {customer.email}
-  //             </div>
-  //           </div>
-  //         ))
-  //       ) : (
-  //         <div>"Loading..."</div>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
 };
 
-export default NewCustomer;
+export default StripeInputEmail;

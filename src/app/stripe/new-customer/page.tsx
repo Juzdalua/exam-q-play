@@ -1,14 +1,14 @@
 import { Metadata } from "next";
-import NewCustomer from "./components/new-customer";
+import StripeInputEmail from "./components/input-email";
 
 export const metadata: Metadata = {
-  title: "Stripe - New Customer",
+  title: "Stripe - New Customer, Email",
 };
 
 const NewCustomerPage = () => {
   return (
     <div>
-      <NewCustomer />
+      <StripeInputEmail />
     </div>
   );
 };

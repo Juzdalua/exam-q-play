@@ -1,4 +1,4 @@
-import stripe from "@/src/utils/stripe/stripe";
+import stripe from "@/src/utils/stripe/stripeServer";
 import { NextRequest, NextResponse } from "next/server";
 
 const GetSrtipeCustomer = async() => {
