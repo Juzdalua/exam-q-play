@@ -54,10 +54,15 @@ class StripeServer {
       payment_method: paymentMethod,
       amount,
       currency,
-      confirmation_method: "manual",
-      // confirmation_method: "automatic",
       confirm: true, // 즉시 결제 진행
+      automatic_payment_methods: {
+        enabled: true,
+        // allow_redirects: "never",
+        allow_redirects: "always",
+      },
       return_url: "http://localhost:3000/stripe",
+
+      // confirmation_method: "manual",
     });
   }
 }

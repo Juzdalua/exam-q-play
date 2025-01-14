@@ -34,29 +34,27 @@ const PaymentPage = () => {
 
   useEffect(() => {
     const handleConfirm = async () => {
-      if (!customerData || !customerData.clientSecret || !paymentMethod) return;
-
-      const stripe = await stripePromise;
-      if (!stripe) return;
-
-      console.log("clientSecret",customerData.clientSecret)
-      console.log("paymentMethod",paymentMethod)
-      const { error, paymentIntent } = await stripe.confirmCardPayment(customerData.clientSecret, {
-        payment_method: paymentMethod,
-      });
-
-      console.log(error);
-
-      if (error) {
-        console.error("Payment failed", error);
-        alert(`Payment failed: ${error.message}`);
-      } else {
-        if (paymentIntent?.status === "succeeded") {
-          alert("Payment was successful!");
-        } else {
-          alert("Unexpected payment intent state.");
-        }
+      if (!customerData.paymentIntent.next_action && customerData.paymentIntent.status == "succeeded") {
+        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_PORT}/stripe`;
       }
+
+      // 수동결제 확인
+      // const stripe = await stripePromise;
+      // if (!stripe) return;
+      // const { error, paymentIntent } = await stripe.confirmCardPayment(customerData.clientSecret, {
+      //   payment_method: paymentMethod,
+      // });
+
+      // if (error) {
+      //   console.error("Payment failed", error);
+      //   alert(`Payment failed: ${error.message}`);
+      // } else {
+      //   if (paymentIntent?.status === "succeeded") {
+      //     alert("Payment was successful!");
+      //   } else {
+      //     alert("Unexpected payment intent state.");
+      //   }
+      // }
     };
 
     if (customerData) {

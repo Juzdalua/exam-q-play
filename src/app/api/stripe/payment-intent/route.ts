@@ -8,7 +8,8 @@ export const POST = async (req: NextRequest) => {
     const body: any = await req.json();
     const paymentIntent = await stripe.createPaymentIntentByPaymentId(body.paymentMethod, body.amount, body.currency);
 
-    return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+    // return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+    return NextResponse.json({ paymentIntent }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Failed to create Payment Intent" }, { status: 500 });
