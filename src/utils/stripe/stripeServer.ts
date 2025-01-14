@@ -32,6 +32,11 @@ class StripeServer {
     return await this.stripe.customers.list();
   }
 
+  // 고객 정보 조회 by email
+  public async getCustomerByEmail(email: string): Promise<Stripe.ApiListPromise<Stripe.Customer>> {
+    return await this.stripe.customers.list({email});
+  }
+
   /**
    * 고객 정보 조회 by customer_id
    * @param customerId
@@ -62,7 +67,7 @@ class StripeServer {
   }
 
   // client_secret 생성 by payment_method
-  public async createPaymentIntentByPaymentId(paymentMethod: string, amount: number, currency: string = "usd"): Promise<Stripe.Response<Stripe.PaymentIntent>> {
+  public async createPaymentIntentByPaymentMethod(paymentMethod: string, amount: number, currency: string = "usd"): Promise<Stripe.Response<Stripe.PaymentIntent>> {
     return await this.stripe.paymentIntents.create({
       payment_method: paymentMethod,
       amount,
@@ -107,11 +112,11 @@ class StripeServer {
 
   /**
    * 결제 새뷰 내역 조회
-   * @param paymentMethod
+   * @param paymentIntent
    * @returns 결제상태, 결제수단, 고객정보
    */
-  public async getPaymentDetailByPamentMethod(paymentMethod: string): Promise<Stripe.Response<Stripe.PaymentIntent>> {
-    return await this.stripe.paymentIntents.retrieve(paymentMethod);
+  public async getPaymentDetailByPamentIntent(paymentIntent: string): Promise<Stripe.Response<Stripe.PaymentIntent>> {
+    return await this.stripe.paymentIntents.retrieve(paymentIntent);
   }
 
   /**

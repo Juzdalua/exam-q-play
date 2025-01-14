@@ -6,7 +6,7 @@ const stripe = StripePayment.getInstance();
 export const POST = async (req: NextRequest) => {
   try {
     const body: any = await req.json();
-    const paymentIntent = await stripe.createPaymentIntentByPaymentId(body.paymentMethod, body.amount, body.currency);
+    const paymentIntent = await stripe.createPaymentIntentByPaymentMethod(body.paymentMethod, body.amount, body.currency);
 
     // return NextResponse.json({ clientSecret: paymentIntent.client_secret });
     return NextResponse.json({ paymentIntent }, { status: 200 });
