@@ -2,10 +2,10 @@ import Stripe from "stripe";
 
 /**
  *
- * 1. 이메일 등록 후 고객 ID 생성.
+ * 1. 이메일 등록 후 customer_id 생성.
  * 2. 카드를 등록하여 PaymentMethod.id를 받음.
  * 3. PaymentMethod.id로 PaymentIntent를 생성
- * 4. client_secret을 받은 후 클라이언트에서 결제 승인
+ * 4. PaymentIntent에서 client_secret을 받은 후 클라이언트에서 결제 승인
  */
 
 class StripeServer {
