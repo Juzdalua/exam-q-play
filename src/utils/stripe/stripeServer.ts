@@ -7,7 +7,6 @@ import Stripe from "stripe";
  * 3. PaymentMethod.id로 PaymentIntent를 생성
  * 4. PaymentIntent에서 client_secret을 받은 후 클라이언트에서 결제 승인
  */
-
 class StripeServer {
   private static instance: StripeServer;
   private stripe: Stripe;
@@ -27,14 +26,20 @@ class StripeServer {
     return this.stripe;
   }
 
-  // 모든 고객 조회
+  /**
+   * 모든 고객 조회
+   */
   public async getAllCustomer(): Promise<Stripe.ApiListPromise<Stripe.Customer>> {
     return await this.stripe.customers.list();
   }
 
-  // 고객 정보 조회 by email
+  /**
+   * 고객 정보 조회 by email
+   * @param email
+   * @returns
+   */
   public async getCustomerByEmail(email: string): Promise<Stripe.ApiListPromise<Stripe.Customer>> {
-    return await this.stripe.customers.list({email});
+    return await this.stripe.customers.list({ email });
   }
 
   /**
@@ -46,14 +51,24 @@ class StripeServer {
     return await this.stripe.customers.retrieve(customerId);
   }
 
-  // customer_id 생성 by email
+  /**
+   * customer_id 생성 by email
+   * @param email
+   * @returns
+   */
   public async createCustomer(email: string): Promise<Stripe.Response<Stripe.Customer>> {
     return await this.stripe.customers.create({
       email,
     });
   }
 
-  // client_secret 생성 by customer_id
+  /**
+   * client_secret 생성 by customer_id
+   * @param customerId
+   * @param amount
+   * @param currency
+   * @returns
+   */
   public async createPaymentIntentByCustomerId(customerId: string, amount: number, currency: string = "usd"): Promise<Stripe.Response<Stripe.PaymentIntent>> {
     return await this.stripe.paymentIntents.create({
       customer: customerId,
@@ -66,8 +81,18 @@ class StripeServer {
     });
   }
 
-  // client_secret 생성 by payment_method
-  public async createPaymentIntentByPaymentMethod(paymentMethod: string, amount: number, currency: string = "usd"): Promise<Stripe.Response<Stripe.PaymentIntent>> {
+  /**
+   * client_secret 생성 by payment_method
+   * @param paymentMethod
+   * @param amount
+   * @param currency
+   * @returns
+   */
+  public async createPaymentIntentByPaymentMethod(
+    paymentMethod: string,
+    amount: number,
+    currency: string = "usd"
+  ): Promise<Stripe.Response<Stripe.PaymentIntent>> {
     return await this.stripe.paymentIntents.create({
       payment_method: paymentMethod,
       amount,
@@ -84,29 +109,48 @@ class StripeServer {
     });
   }
 
-  // 결제내역 조회 by customer_id
-  public async getCustomerPaymentHistory(customerId: string): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
+  /**
+   * 결제내역 조회 by customer_id
+   * @param customerId
+   * @param limit
+   * @returns
+   */
+  public async getCustomerPaymentHistory(customerId: string, limit: number = 5): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
     return await this.stripe.paymentIntents.list({
       customer: customerId,
-      limit: 10,
+      limit,
     });
   }
 
-  // 모든 결제내역 조회
-  public async getAllCustomerPaymentHistory(): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
+  /**
+   * 모든 결제내역 조회
+   * @param limit
+   * @returns
+   */
+  public async getAllCustomerPaymentHistory(limit: number = 5): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
     return await this.stripe.paymentIntents.list({
-      limit: 10,
+      limit,
     });
   }
 
-  // 모든 결제내역 조회 by date
-  public async getAllCustomerPaymentHistoryWithDate(startDate: number, endDate: number): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
+  /**
+   * 모든 결제내역 조회 by date
+   * @param startDate
+   * @param endDate
+   * @param limit
+   * @returns
+   */
+  public async getAllCustomerPaymentHistoryWithDate(
+    startDate: number,
+    endDate: number,
+    limit: number = 10
+  ): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
     return await this.stripe.paymentIntents.list({
       created: {
         gte: startDate,
         lte: endDate,
       },
-      limit: 10,
+      limit,
     });
   }
 
@@ -122,24 +166,30 @@ class StripeServer {
   /**
    * 저장된 결제 수단 조회
    * @param customer_id
+   * @param type
    * @returns 카드 브랜드, 카드 마지막 4자리, 카드 만료일
    */
-  public async getListPaymentMethodByCustomerId(customerId: string): Promise<Stripe.ApiListPromise<Stripe.PaymentMethod>> {
+  public async getListPaymentMethodByCustomerId(
+    customerId: string,
+    type: Stripe.PaymentMethodListParams.Type = "card"
+  ): Promise<Stripe.ApiListPromise<Stripe.PaymentMethod>> {
     return await this.stripe.paymentMethods.list({
       customer: customerId,
-      type: "card", // 카드 정보만 가져오기
+      type, // 카드 정보만 가져오기
     });
   }
 
   /**
    * 환불 내역 조회 by payment_method
    * @param paymentMethod
-   * @returns 환불금액, 환불상태, 환불이유
+   * @param limit
+   * @returns
    */
-  public async getListRefunds(paymentMethod: string) {
+
+  public async getListRefunds(paymentMethod: string, limit: number = 5) {
     return await this.stripe.refunds.list({
       payment_intent: paymentMethod, // 특정 결제의 환불 내역
-      limit: 5,
+      limit,
     });
   }
 
@@ -155,12 +205,13 @@ class StripeServer {
   /**
    * 결제 실패 이벤트 조회
    * @param customerId
+   * @param limit
    * @returns 결제 성공 여부, 실패 이유, 결제 세부 정보
    */
-  public async getListChargeByCustomerId(customerId: string): Promise<Stripe.ApiListPromise<Stripe.Charge>> {
+  public async getListChargeByCustomerId(customerId: string, limit: number = 5): Promise<Stripe.ApiListPromise<Stripe.Charge>> {
     return await this.stripe.charges.list({
       customer: customerId,
-      limit: 5,
+      limit,
     });
   }
 }
