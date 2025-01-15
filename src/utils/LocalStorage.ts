@@ -1,17 +1,30 @@
 class LocalStorage {
+  private static instance: LocalStorage;
+
   constructor() {}
 
-  static setItem(key: string, item: string) {
-    if (typeof window !== "undefined") localStorage.setItem(key, item);
+  private isClientComponent(): boolean{
+    return typeof window != "undefined";
   }
 
-  static getItem(key: string) {
-    if (typeof window !== "undefined") return localStorage.getItem(key);
+  public static getInstance(): LocalStorage {
+    if (!LocalStorage.instance) {
+      LocalStorage.instance = new LocalStorage();
+    }
+    return LocalStorage.instance;
+  }
+
+  public setItem(key: string, item: any): void {
+    if (this.isClientComponent()) localStorage.setItem(key, item);
+  }
+
+  public getItem(key: string): any | null {
+    if (this.isClientComponent()) return localStorage.getItem(key);
     return null;
   }
 
-  static removeItem(key: string) {
-    if (typeof window !== "undefined") localStorage.removeItem(key);
+  public removeItem(key: string): void {
+    if (this.isClientComponent()) localStorage.removeItem(key);
   }
 }
 

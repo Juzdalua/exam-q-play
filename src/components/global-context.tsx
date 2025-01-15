@@ -12,14 +12,20 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedToken = LocalStorage.getItem("jwt");
+    // const savedToken = LocalStorage.getItem("jwt");
+    const savedToken = LocalStorage.getInstance().getItem("jwt");
     if (savedToken) setToken(savedToken);
   }, []);
 
   const updateToken = (newToken: string | null) => {
     setToken(newToken);
-    if (newToken) LocalStorage.setItem("jwt", newToken);
-    else LocalStorage.removeItem("jwt");
+    if (newToken) {
+      // LocalStorage.setItem("jwt", newToken);
+      LocalStorage.getInstance().setItem("jwt", newToken);
+    } else {
+      // LocalStorage.removeItem("jwt");
+      LocalStorage.getInstance().removeItem("jwt");
+    }
   };
 
   return <GlobalContext.Provider value={{ token, setToken: updateToken }}>{children}</GlobalContext.Provider>;

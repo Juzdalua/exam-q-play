@@ -10,7 +10,8 @@ const Logout = () => {
   const { token, setToken } = useGlobalContext();
 
   useEffect(() => {
-    LocalStorage.removeItem("jwt");
+    // LocalStorage.removeItem("jwt");
+    LocalStorage.getInstance().removeItem("jwt");
     setToken(null);
 
     router.push("/");
