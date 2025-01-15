@@ -112,7 +112,7 @@ class StripeServer {
   /**
    * 결제내역 조회 by customer_id
    * @param customerId
-   * @param limit
+   * @param limit default 5
    * @returns
    */
   public async getCustomerPaymentHistory(customerId: string, limit: number = 5): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
@@ -124,7 +124,7 @@ class StripeServer {
 
   /**
    * 모든 결제내역 조회
-   * @param limit
+   * @param limit default 5
    * @returns
    */
   public async getAllCustomerPaymentHistory(limit: number = 5): Promise<Stripe.ApiListPromise<Stripe.PaymentIntent>> {
@@ -137,7 +137,7 @@ class StripeServer {
    * 모든 결제내역 조회 by date
    * @param startDate
    * @param endDate
-   * @param limit
+   * @param limit default 10
    * @returns
    */
   public async getAllCustomerPaymentHistoryWithDate(
@@ -182,10 +182,9 @@ class StripeServer {
   /**
    * 환불 내역 조회 by payment_method
    * @param paymentMethod
-   * @param limit
+   * @param limit default 5
    * @returns
    */
-
   public async getListRefunds(paymentMethod: string, limit: number = 5) {
     return await this.stripe.refunds.list({
       payment_intent: paymentMethod, // 특정 결제의 환불 내역
@@ -205,7 +204,7 @@ class StripeServer {
   /**
    * 결제 실패 이벤트 조회
    * @param customerId
-   * @param limit
+   * @param limit default 5
    * @returns 결제 성공 여부, 실패 이유, 결제 세부 정보
    */
   public async getListChargeByCustomerId(customerId: string, limit: number = 5): Promise<Stripe.ApiListPromise<Stripe.Charge>> {
