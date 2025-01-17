@@ -1,9 +1,9 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect } from "react";
 
 const KCPPage = () => {
+  const email = 'test@test.test'
   const handlePayment = () => {
     try {
       const form = document.getElementById("paymentForm") as HTMLFormElement;
@@ -25,6 +25,9 @@ const KCPPage = () => {
           <input type="hidden" name="ordr_idxx" value="1234567890" />
           <input type="hidden" name="good_name" value="Test Item" />
           <input type="hidden" name="good_mny" value="1000" />
+          <input type="hidden" name="buyr_name" value={email} />
+          <input type="hidden" name="buyr_tel1" value="01012345678" />
+          <input type="hidden" name="buyr_mail" value="test@example.com" />
         </form>
         <button onClick={handlePayment}>결제하기</button>
       </div>
