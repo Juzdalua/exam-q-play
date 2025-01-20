@@ -72,10 +72,13 @@ const DaisyCountdown = ({ date, time }: { date: string; time: string }) => {
       </div>
       <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
         <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          <span className="countdown font-mono text-5xl">
+          {/* <span className="countdown font-mono text-5xl">
             <span style={{ "--value": days > 99 ? 0 : days } as React.CSSProperties}></span>
-          </span>
-          days
+          </span> */}
+          <div className="flex flex-col items-center align-middle font-mono ">
+            <span className="text-5xl">{days}</span>
+            days
+          </div>
         </div>
         <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
           <span className="countdown font-mono text-5xl">

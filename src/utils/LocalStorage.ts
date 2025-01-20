@@ -3,15 +3,15 @@ class LocalStorage {
 
   constructor() {}
 
-  private isClientComponent(): boolean{
-    return typeof window != "undefined";
-  }
-
   public static getInstance(): LocalStorage {
     if (!LocalStorage.instance) {
       LocalStorage.instance = new LocalStorage();
     }
     return LocalStorage.instance;
+  }
+
+  private isClientComponent(): boolean{
+    return typeof window != "undefined";
   }
 
   public setItem(key: string, item: any): void {
