@@ -59,7 +59,7 @@ class PayLetter {
           custom_parameter: "this is custom parameter",
           return_url: `${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_PORT}/api/pay-letter/res-payment`, // 필수
           callback_url: `${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_PORT}/api/pay-letter/callback-payment`, // 필수
-          cancel_url: "https://testpg.payletter.com/cancel", // 취소버튼시 이동 url
+          cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_PORT}/pay-letter`,
         },
       });
 
