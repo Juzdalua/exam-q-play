@@ -4,12 +4,22 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
 import CheckoutForm from "./card-form";
+import { useSearchParams } from "next/navigation";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_PUBLISH_KEY_TEST!);
 
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
   const [customerData, setCustomerData] = useState(null);
+  const [customerId, setCustomerId] = useState("");
+
+  const searchParams = useSearchParams();
+  if(customerId == "") {
+    const customer_id = searchParams.get("customer_id");
+    setCustomerId(customer_id);
+    console.log(customer_id)
+  }
+  // todo -> use customer_id
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
@@ -24,6 +34,7 @@ const PaymentPage = () => {
       });
 
       const data = await response.json();
+      console.log(data)
       setCustomerData(data);
     };
 

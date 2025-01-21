@@ -15,8 +15,11 @@ const TopLayout = ({ onSideBarToggle }: { onSideBarToggle: () => void }) => {
       {/* Right */}
       <div className="flex w-full justify-end">
         <ul className="menu menu-horizontal content-center">
-        <li>
+          {/* <li>
             <Link href={`/kcp`}>KCP</Link>
+          </li> */}
+          <li>
+            <Link href={`/pay-letter`}>Pay-Letter</Link>
           </li>
           <li>
             <Link href={`/stripe`}>Stripe</Link>

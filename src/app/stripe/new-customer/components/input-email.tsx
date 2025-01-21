@@ -27,7 +27,7 @@ const StripeInputEmail = () => {
         throw new Error(body.message);
       }
 
-      router.push(`/stripe/payment-intent?id=${encodeURIComponent(body.result.id)}`);
+      router.push(`/stripe/payment-intent?customer_id=${encodeURIComponent(body.result.id)}`);
     } catch (error: any) {
       console.log(error.message);
     }
