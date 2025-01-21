@@ -22,6 +22,9 @@ export const POST = async (req: NextRequest) => {
       const params = new URLSearchParams(urlEncodedBody); // URLSearchParams로 파싱
       const parsedData: PayLetterPaymentCallback = Object.fromEntries(params.entries());
       console.log("Parsed Form Data:", parsedData);
+
+      // TODO - 충전로직
+
       return NextResponse.json({ data: parsedData }, { status: 200 });
     }
 
