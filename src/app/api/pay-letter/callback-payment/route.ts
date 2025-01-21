@@ -1,3 +1,4 @@
+import { errorResponse, successResponse } from "@/src/utils/Utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export interface PayLetterPaymentCallback {
@@ -25,12 +26,12 @@ export const POST = async (req: NextRequest) => {
 
       // TODO - 충전로직
 
-      return NextResponse.json({ data: parsedData }, { status: 200 });
+      return successResponse(parsedData);
     }
 
     return NextResponse.json({ data: {} }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Failed to Request Payment" }, { status: 500 });
+    return errorResponse(500, "Failed to PayLetter Callback");
   }
 };

@@ -1,3 +1,4 @@
+import { errorResponse, successResponse } from "@/src/utils/Utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export interface PayLetterPaymentResponse {
@@ -55,12 +56,12 @@ export const POST = async (req: NextRequest) => {
       const params = new URLSearchParams(urlEncodedBody); // URLSearchParams로 파싱
       const parsedData: PayLetterPaymentResponse = Object.fromEntries(params.entries());
       console.log("Parsed Form Data:", parsedData);
-      return NextResponse.json({ data: parsedData }, { status: 200 });
+      return successResponse(parsedData);
     }
 
-    return NextResponse.json({ data: {} }, { status: 200 });
+    return successResponse({});
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Failed to Request Payment" }, { status: 500 });
+    return errorResponse(500, "Failed to PayLetter Response Payment");
   }
 };

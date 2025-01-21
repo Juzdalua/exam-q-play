@@ -1,15 +1,20 @@
 import PayLetter from "@/src/utils/pay-letter/payLetter";
-import { PaymentCode } from "@/src/utils/pay-letter/payLetterTypes";
-import { NextRequest, NextResponse } from "next/server";
+import { errorResponse, successResponse } from "@/src/utils/Utils";
+import { NextRequest } from "next/server";
+
+export interface PayLetterRequestPayment {
+  token: number;
+  online_url: string;
+  mobile_url: string;
+}
 
 export const POST = async (req: NextRequest) => {
   try {
     const body: any = await req.json();
     const res = await PayLetter.getInstance().reqPayment(body.pgcode, body.product_name, body.user_id, body.amount);
-    console.log(res);
-    return NextResponse.json({ data: res }, { status: 200 });
+    return successResponse(res);
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Failed to Request Payment" }, { status: 500 });
+    return errorResponse(500, "Failed to PayLetter Request Payment");
   }
 };

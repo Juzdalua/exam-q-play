@@ -63,14 +63,7 @@ class PayLetter {
         },
       });
 
-      return {
-        success: true,
-        code: res.data.code ?? null,
-        message: res.data.message ?? null,
-        token: res.data.token,
-        online_url: res.data.online_url,
-        mobile_url: res.data.mobile_url,
-      };
+      return res.data;
     } catch (error) {
       console.log(`Request Payment Error: ${error}`);
       return {
