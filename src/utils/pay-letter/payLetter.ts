@@ -145,7 +145,7 @@ class PayLetter {
         method: "get",
         url,
         headers: {
-          Authorization: this.PAYLETTER_API_KEY_PAYMENT,
+          Authorization: this.PAYLETTER_API_KEY_SEARCH,
         },
       });
 
@@ -213,7 +213,7 @@ class PayLetter {
         method: "post",
         url: `${this.PAYLETTER_BASE_URL}/v1.0/payments/status`,
         headers: {
-          Authorization: this.PAYLETTER_API_KEY_PAYMENT,
+          Authorization: this.PAYLETTER_API_KEY_SEARCH,
           "Content-Type": "application/json",
         },
         data: {
