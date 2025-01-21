@@ -136,9 +136,8 @@ class PayLetter {
    * @param date_type
    * @returns
    */
-  public async searchPayment(date: string, date_type: string = "transaction") {
+  public async searchPaymentList(date: string, date_type: string = "transaction") {
     try {
-      // TODO - Check client_id
       let url = `${this.PAYLETTER_BASE_URL}/v1.0/payments/transaction/list`;
       url += `?client_id=${this.PAYLETTER_CLIENT_ID}&date=${date.replace(/-/g, "")}&date_type=${date_type}`;
 
@@ -188,6 +187,57 @@ class PayLetter {
                 "cancel_date": "2018-09-18 09:54:01"
               }
             ]
+          }
+        */
+      };
+    } catch (error) {
+      console.log(`Request Payment Error: ${error}`);
+      return {
+        success: false,
+        error: {
+          msg: error,
+          code: -1,
+        },
+      };
+    }
+  }
+
+  /**
+   * 거래 상태 조회
+   * @param order_no
+   * @returns
+   */
+  public async searchPaymentStatus(order_no: string) {
+    try {
+      const res = await axios({
+        method: "post",
+        url: `${this.PAYLETTER_BASE_URL}/v1.0/payments/status`,
+        headers: {
+          Authorization: this.PAYLETTER_API_KEY_PAYMENT,
+          "Content-Type": "application/json",
+        },
+        data: {
+          client_id: this.PAYLETTER_CLIENT_ID,
+          order_no,
+        },
+      });
+
+      /*
+        status_code: 1-생성 2-진입 3-인중 4-실패 5-완료
+      */
+
+      return {
+        success: true,
+        data: res.data,
+        /*
+          {
+            "code" :0,
+            "message":"ok",
+            "client_id":"pay_test",
+            "order_no":"pay_test2023118164578",
+            "token":"170202154314200189",
+            "tid":"tpay_test-202312082315563",
+            "status_code":5
           }
         */
       };
