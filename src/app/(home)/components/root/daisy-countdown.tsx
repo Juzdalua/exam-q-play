@@ -40,13 +40,21 @@ const ConvertFullStringDay = (day: number) => {
   }
 };
 
-const DaisyCountdown = ({ date, time }: { date: string; time: string }) => {
-  const targetDateTime = new Date(`${date}T${time}:00`).getTime();
-  const targetDateTemp = new Date(`${date}T${time}:00`);
-
-  const [remainingTime, setRemainingTime] = useState(targetDateTime - Date.now());
+const DaisyCountdown = () => {
+  const [targetDateTime, setTargetDateTime] = useState<number | null>(null);
+  const [remainingTime, setRemainingTime] = useState<number | null>(null);
 
   useEffect(() => {
+    const date = process.env.NEXT_PUBLIC_HOME_DDAY_DATE;
+    const time = process.env.NEXT_PUBLIC_HOME_DDAY_TIME;
+
+    const targetDate = new Date(`${date}T${time}:00`);
+    setTargetDateTime(targetDate.getTime());
+  }, []);
+
+  useEffect(() => {
+    if (!targetDateTime) return;
+
     const interval = setInterval(() => {
       const timeLeft = targetDateTime - Date.now();
       setRemainingTime(timeLeft);
@@ -66,15 +74,14 @@ const DaisyCountdown = ({ date, time }: { date: string; time: string }) => {
   return (
     <div className="flex flex-col justify-center items-center mt-20">
       <div className="text-xl mb-5">
-        {`${date.split("-")[0]}.${date.split("-")[1]}.${date.split("-")[2]}. ${ConvertStringDay(targetDateTemp.getDay())} ${time.split(":")[0]}:${
-          time.split(":")[1]
-        }`}
+        {`${process.env.NEXT_PUBLIC_HOME_DDAY_DATE?.split("-")[0]}.${process.env.NEXT_PUBLIC_HOME_DDAY_DATE?.split("-")[1]}.${
+          process.env.NEXT_PUBLIC_HOME_DDAY_DATE?.split("-")[2]
+        }. ${ConvertStringDay(new Date(`${process.env.NEXT_PUBLIC_HOME_DDAY_DATE}T${process.env.NEXT_PUBLIC_HOME_DDAY_TIME}:00`).getDay())} ${
+          process.env.NEXT_PUBLIC_HOME_DDAY_TIME?.split(":")[0]
+        }:${process.env.NEXT_PUBLIC_HOME_DDAY_TIME?.split(":")[1]}`}
       </div>
       <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
         <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          {/* <span className="countdown font-mono text-5xl">
-            <span style={{ "--value": days > 99 ? 0 : days } as React.CSSProperties}></span>
-          </span> */}
           <div className="flex flex-col items-center align-middle font-mono ">
             <span className="text-5xl">{days}</span>
             days
