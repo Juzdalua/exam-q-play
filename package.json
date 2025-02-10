@@ -4,7 +4,7 @@
   "description": "npm init\r npm install react@latest next@latest react-dom@latest",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start",
     "watch": "tsc -w",
