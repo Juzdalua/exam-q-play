@@ -2,7 +2,7 @@ import stripe from "@/src/utils/stripe/stripeServer";
 import { NextRequest, NextResponse } from "next/server";
 
 const GetSrtipeCustomer = async() => {
-  const customers = await stripe.customers.list();
+  const customers = await stripe.getInstance().getAllCustomer();
   return customers;
 }
 
